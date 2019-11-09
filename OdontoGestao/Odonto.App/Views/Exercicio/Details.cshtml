@@ -1,0 +1,21 @@
+﻿@model Odonto.Core.Models.Exercicio
+
+@{
+    ViewData["Title"] = "Detalhes do Exercicio";
+}
+<div>
+    <h4>Exercicio</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Descricao)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Descricao)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" class="btn btn-primary pull-right mb-xl" asp-route-id="@Model.Id">Editar</a>
+    <a asp-action="Index">Voltar</a>
+</div>

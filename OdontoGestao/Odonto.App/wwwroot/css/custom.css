@@ -1,0 +1,199 @@
+﻿/*----------------------------------------------- Login Page -----------------------------------------------*/
+
+#loginPage {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 100%;
+    height: 100vh;
+    background-color: #f1f2f7;
+}
+
+    #loginPage .container {
+        max-width: 100%;
+        width: 30%;
+    }
+
+        #loginPage .container #loginForm {
+            position: relative;
+            margin-top: 8%;
+        }
+
+            #loginPage .container #loginForm .login-container {
+                position: relative;
+                width: 100%;
+                margin-left: auto;
+                margin-right: auto;
+            }
+
+            #loginPage .container #loginForm .register-text {
+                margin-left: 4%;
+            }
+
+    /*------------------------------------- Home Page -------------------------------------*/
+    @media(max-width: 768px ) {
+
+        #homePage .box .center-box .box-title {
+            line-height: 38px;
+            font-size: 28px;
+        }
+
+        #homePage .box .center-box .box-subtitle {
+            margin: 4% 0 2% 0;
+            line-height: 25px;
+            font-size: 12px;
+        }
+
+        #homePage .box .center-box #searchPage input[type="search"] {
+            width: 100%;
+            height: 50px;
+            font-size: 16px;
+            margin-top: 6%;
+        }
+
+        #homePage .box .center-box #searchPage button {
+            right: 4%;
+        }
+
+        #homePage .more-help .box {
+            height: auto;
+        }
+
+        #homePage .more-help .title {
+            font-size: 30px;
+        }
+
+        #homePage .more-help .box .mini-box {
+            width: 100%;
+            height: auto;
+            margin: 0 auto 10% auto;
+        }
+
+            #homePage .more-help .box .mini-box .text {
+                position: relative;
+                bottom: auto;
+                font-size: 18px;
+            }
+
+        #searchPage button {
+            width: 45px;
+            height: 45px;
+        }
+
+        #homePage .option .option-box {
+            border-bottom: 1px solid #4daf8d;
+            float: none;
+            width: 100%;
+            margin-top: 3%;
+            padding-bottom: 3%;
+            margin-bottom: 0;
+        }
+
+            #homePage .option .option-box:hover {
+                padding: 1%;
+                padding-bottom: 3%;
+                margin-bottom: 0;
+                border-bottom: 1px solid #4daf8d;
+                -webkit-transition: none;
+                -moz-transition: none;
+                transition: none;
+            }
+
+        #homePage .popular-articles {
+            height: auto;
+        }
+
+            #homePage .popular-articles .articles-box .articles-list {
+                float: none;
+                width: 100%;
+            }
+
+        footer .custom-footer .image-box {
+            float: none;
+            width: 100%;
+        }
+
+        footer .custom-footer .menu-box {
+            float: none;
+            width: 100%;
+            height: auto;
+            text-align: center;
+        }
+
+            footer .custom-footer .menu-box .menu-item {
+                float: none;
+                width: 100%;
+                height: auto;
+            }
+
+                footer .custom-footer .menu-box .menu-item table tr th {
+                    text-align: center;
+                }
+
+        footer .icons-footer {
+            height: auto;
+            padding-top: 2%;
+            padding-bottom: 2%;
+        }
+
+        #searchNotFoundPage .box .center-box .box-title {
+            line-height: 32px;
+            font-size: 28px;
+        }
+
+        #searchNotFoundPage .box .center-box .box-subtitle {
+            padding-top: 3%;
+            line-height: 18px;
+            font-size: 12px;
+        }
+
+        #searchNotFoundPage .box .center-box #searchPage input[type="search"] {
+            width: 100%;
+        }
+
+        #searchNotFoundPage .box .center-box #searchPage button {
+            right: 15px;
+        }
+    }
+
+    @media(max-width: 375px ) {
+
+        #homePage .box .center-box .box-title {
+            line-height: 40px;
+            font-size: 32px;
+        }
+    }
+
+    @media(min-width: 992px ) {
+
+        .col-md-12 {
+            float: none;
+            width: 100%;
+        }
+    }
+
+/************************************* QUILL ******************************/
+#editor-container {
+    font-family: "Roboto";
+    height: 700px;
+    margin-bottom: 30px
+}
+
+#editor-container-question {
+    font-family: "Roboto";
+    height: 300px;
+    margin-bottom: 30px
+}
+
+.ql-toolbar.ql-snow {
+    padding: 1.5% 13%;
+    border-bottom: 0;
+}
+
+#toolbar-container .ql-font span[data-label="Roboto"] {
+    font-family: "Roboto";
+}
+
+.ql-font-roboto {
+    font-family: "Roboto";
+}

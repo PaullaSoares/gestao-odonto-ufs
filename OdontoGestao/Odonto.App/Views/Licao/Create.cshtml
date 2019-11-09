@@ -1,0 +1,120 @@
+﻿@model Odonto.Core.Models.Licao
+
+@{
+    ViewData["Title"] = "Criar Lição";
+}
+
+<script src="https://cdn.quilljs.com/1.0.0/quill.js"></script>
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+
+@Html.AntiForgeryToken()
+
+<div class="modal" id="CriarTopico">
+</div>
+
+<div class="internal-page-content">
+    <div class="internal-page-form">
+        @using (Html.BeginForm("Create", "Licao", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, null, new { @id = "form-input" }))
+        {
+            @Html.AntiForgeryToken()
+            <div class="form-horizontal">
+                <h4>Criar Lição</h4>
+                <hr />
+
+                <div class="col-md-12 nopadding-left">
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                    <div>
+                        @Html.TextBoxFor(m => m.Titulo, new { @class = "control-borderless-button", @placeholder = "Título" })
+                        @Html.ValidationMessageFor(m => m.Titulo, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div hidden>
+                    @Html.TextBoxFor(m => m.TextoLicao, new { @class = "control-borderless-button", @placeholder = "Texto Licao" })
+                </div>
+                <div hidden>
+                    @Html.TextBoxFor(m => m.HtmlLicao, new { @class = "control-borderless-button", @placeholder = "HTML Licao" })
+                </div>
+                <hr />
+
+                <div id="editor-container"></div>
+
+                <div class="form-group">
+                    <div class="half-size-div-topico">
+                        <div class="col-md-10 nopadding-right">
+                            @Html.LabelFor(model => model.Topico, htmlAttributes: new { @class = "control-label col-md-2" })
+                            @Html.DropDownListFor(x => x.TopicoId, (IEnumerable<SelectListItem>)ViewBag.Topicos, "", htmlAttributes: new { @class = "form-control control-with-side-button" })
+
+                            <!--<button type="button" class="add-button-modal details" data-toggle="modal" data-target="#CriarTopico">
+                                <span class="glyphicon glyphicon-plus"></span>
+                            </button>-->
+
+                        </div>
+                    </div>
+
+                    <div class="col-md-6 nopadding-right">
+                        <input value="Salvar" type="submit" class="btn btn-primary pull-right mb-xl" />
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+
+<!-- Initialize Quill editor -->
+<script>
+    var toolbarOptions = [
+        ['bold', 'italic', 'underline', 'strike'],        // toggled buttons
+        [{ 'align': [] }],
+
+        //[{ 'header': 1 }, { 'header': 2 }],               // custom button values
+        [{ 'list': 'ordered' }, { 'list': 'bullet' }],
+        [{ 'script': 'sub' }, { 'script': 'super' }],      // superscript/subscript
+        [{ 'indent': '-1' }, { 'indent': '+1' }],          // outdent/indent
+        [{ 'direction': 'rtl' }],                         // text direction
+
+        [{ 'header': [1, 3, false] }],
+
+        [{ 'color': [] }],          // dropdown with defaults from theme
+        ['blockquote'],
+        ['link', 'image', 'video'],
+        ['clean']                                         // remove formatting button
+    ];
+
+    var Font = Quill.import('formats/font');
+    Font.whitelist = ['roboto'];
+    Quill.register(Font, true);
+
+    var editor = new Quill('#editor-container', {
+        modules: { toolbar: toolbarOptions },
+        placeholder: 'Texto da Lição',
+        theme: 'snow'
+    });
+
+    var form = document.querySelector('#form-input');
+
+    form.onsubmit = function () {
+        // Populate hidden form on submit
+        var html = document.querySelector('#HtmlLicao');
+        html.value = JSON.stringify(editor.root.innerHTML);
+
+        var texto = document.querySelector('#TextoLicao');
+        texto.value = JSON.stringify(editor.getContents());
+        return true;
+    };
+
+    $(function () {
+        $(".details").click(function () {
+            var id = $(this).attr("data-id");
+            $("#CriarTopico").load("/Topico/CreateModal",
+                function () {
+                    $("#CriarTopico").modal('show');
+                });
+        });
+    });
+
+</script>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

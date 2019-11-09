@@ -1,0 +1,135 @@
+﻿@using System.Collections.Generic
+@using System.Linq
+@using Microsoft.AspNetCore.Http
+@using Microsoft.AspNetCore.Http.Authentication
+@using Odonto.Core.Models
+@model LoginViewModel
+@inject SignInManager<ApplicationUser> SignInManager
+
+@{
+    ViewBag.Title = "Log in";
+    ViewBag.HideHeader = true;
+    ViewBag.HideFooter = true;
+    ViewBag.HideBorder = true;
+}
+
+@*<h2>@ViewData["Title"]</h2>
+    <div id="loginPage">
+            <div class="login-container">
+                <div class="row">
+                    <div class="col-md-12">
+                        <section id="loginForm">
+                            <form asp-route-returnurl="@ViewData["ReturnUrl"]" method="post">
+                                <div asp-validation-summary="All" class="text-danger"></div>
+                                <div class="form-group">
+                                    <label asp-for="Email"></label>
+                                    <input asp-for="Email" class="form-control" />
+                                    <span asp-validation-for="Email" class="text-danger"></span>
+                                </div>
+                                <div class="form-group">
+                                    <label asp-for="Password"></label>
+                                    <input asp-for="Password" class="form-control" />
+                                    <span asp-validation-for="Password" class="text-danger"></span>
+                                </div>
+                                <div class="form-group">
+                                    <div class="checkbox">
+                                        <label asp-for="RememberMe">
+                                            <input asp-for="RememberMe" />
+                                            @Html.DisplayNameFor(m => m.RememberMe)
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <button type="submit" class="btn btn-primary pull-right">Entrar</button>
+                                </div>
+                                <div class="form-group">
+                                    <p>
+                                        <a asp-action="ForgotPassword">Esqueçeu a senha?</a>
+                                    </p>
+                                    <p>
+                                        <a asp-action="Register" asp-route-returnurl="@ViewData["ReturnUrl"]">Registre um novo usuário?</a>
+                                    </p>
+                                </div>
+                            </form>
+                        </section>
+                    </div>
+                </div>
+            </div>
+        </div>*@
+
+<div id="loginPage">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+
+                <section id="loginForm">
+                    @using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post))
+                    {
+                        @Html.AntiForgeryToken()
+
+
+                    <div class="login-container">
+
+                        @*@if (ViewBag.InvalidUser == true)
+                        {
+                            <div class="row" id="user-not-exist">
+                                <div class="form-group">
+                                    <div class="col-md-12">
+                                        <div class="alert alert-danger" role="alert">
+                                            E-mail ou Senha incorretos, verifique as credenciais e tente novamente.
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        }*@
+
+                        <div class="row">
+                            <div class="form-group">
+                                <div class="col-md-12">
+                                    <div>
+                                        <h2>@ViewData["Title"]</h2>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-group">
+                                <div class="col-md-12">
+                                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                                    <div>
+                                        @Html.TextBoxFor(m => m.Email, new { @class = "form-control input-lg", @placeholder = "E-mail", onfocus = "loginFormFocused(this)" })
+                                        @Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-group">
+                                <div class="col-md-12">
+                                    <div>
+                                        @Html.TextBoxFor(m => m.Password, new { @class = "form-control input-lg", @type = "password", @placeholder = "Senha", onfocus = "loginFormFocused(this)" })
+                                        @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div>
+                                <a asp-action="Register" asp-route-returnurl="@ViewData["ReturnUrl"]" class="register-text">Registre um novo usuário</a>
+                                <input type="submit" value="Login" class="btn btn-primary pull-right mb-xl" />
+                            </div>
+                        </div>
+
+                    </div>
+
+                    }
+                </section>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @await Html.PartialAsync("_ValidationScriptsPartial")
+}

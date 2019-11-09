@@ -1,0 +1,82 @@
+﻿@model Odonto.Core.Models.Questao
+
+@{
+    ViewData["Title"] = "Detalhes da Questão";
+}
+
+<script src="https://cdn.quilljs.com/1.0.0/quill.js"></script>
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+
+@Html.AntiForgeryToken()
+
+<div class="internal-page-content">
+    <div class="internal-page-form">
+        @Html.AntiForgeryToken()
+        <div class="form-horizontal">
+            <h4>Detalhes da Questão</h4>
+            <hr />
+
+            <div hidden>
+                @Html.TextBoxFor(m => m.TextoPergunta, new { @class = "control-borderless-button", @placeholder = "Pergunta" })
+            </div>
+
+            <div id="editor-container"></div>
+
+            @Html.LabelFor(model => model.Resposta, htmlAttributes: new { @class = "control-label col-md-12" })
+            @Html.DisplayFor(m => m.Resposta, new { @class = "control-borderless-button", @placeholder = "Reposta" })
+
+            <div class="form-group">
+                <div class="col-md-10 nopadding-right">
+
+                    @Html.LabelFor(model => model.Exercicio, htmlAttributes: new {@class = "control-label col-md-12"})
+                    @Html.DisplayFor(x => x.Exercicio.Descricao, new {@class = "form-control"})
+                </div>
+            </div>
+
+            <button type="button" class="btn btn-primary pull-right mb-xl" onclick="location.href = '@Url.Action("Edit", "Questao", new {id = @Model.Id})'">Editar</button>
+
+        </div>
+    </div>
+</div>
+
+<!-- Initialize Quill editor -->
+<script>
+    var toolbarOptions = [
+        ['bold', 'italic', 'underline', 'strike'],        // toggled buttons
+        [{ 'align': [] }],
+
+        //[{ 'header': 1 }, { 'header': 2 }],               // custom button values
+        [{ 'list': 'ordered' }, { 'list': 'bullet' }],
+        [{ 'script': 'sub' }, { 'script': 'super' }],      // superscript/subscript
+        [{ 'indent': '-1' }, { 'indent': '+1' }],          // outdent/indent
+        [{ 'direction': 'rtl' }],                         // text direction
+
+        [{ 'header': [1, 3, false] }],
+
+        [{ 'color': [] }],          // dropdown with defaults from theme
+        ['blockquote'],
+        ['link', 'image', 'video'],
+        ['clean']                                         // remove formatting button
+    ];
+
+    var Font = Quill.import('formats/font');
+    Font.whitelist = ['roboto'];
+    Quill.register(Font, true);
+
+    var editor = new Quill('#editor-container', {
+        modules: { toolbar: toolbarOptions },
+        placeholder: 'Texto da Pergunta',
+        theme: 'snow'
+    });
+
+
+    //editor.root.innerHTML = document.querySelector('#TextoLicao').value;
+
+    editor.setContents(JSON.parse(document.querySelector('#TextoPergunta').value));
+    this.editor.disable();
+
+</script>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

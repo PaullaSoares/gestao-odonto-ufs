@@ -1,0 +1,31 @@
+﻿@model Odonto.Core.Models.Exercicio
+
+@{
+    ViewData["Title"] = "Editar Exercicio";
+}
+
+<div class="internal-page-content">
+    <div class="internal-page-form">
+        @using (Html.BeginForm("Edit", "Exercicio", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, null, new { @id = "form-input" }))
+        {
+            @Html.AntiForgeryToken()
+            <div class="form-horizontal">
+                <h4>Editar Exercicio</h4>
+                <hr />
+
+                @Html.LabelFor(model => model.Descricao, htmlAttributes: new { @class = "control-label col-md-2" })
+                @Html.TextBoxFor(m => m.Descricao, new { @class = "control-borderless-button", @placeholder = "Descrição" })
+
+                <div class="form-group">
+                    <input type="submit" value="Salvar" class="btn btn-primary pull-right mb-xl" />
+                </div>
+                    <a asp-action="Index">Voltar</a>
+            </div>
+        }
+    </div>
+</div>
+
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
